@@ -1,61 +1,5 @@
 #include "hrc_bus.h"
 
-/* Prefer CubeMX HRC_* labels.  The fallback aliases keep this file buildable
- * before main.h is regenerated from the updated .ioc.
- */
-#if !defined(HRC_DATA_IN0_Pin) && defined(M203_DATA_IN0_Pin)
-#define HRC_DATA_IN0_Pin             M203_DATA_IN0_Pin
-#define HRC_DATA_IN0_GPIO_Port       M203_DATA_IN0_GPIO_Port
-#define HRC_DATA_IN1_Pin             M203_DATA_IN1_Pin
-#define HRC_DATA_IN1_GPIO_Port       M203_DATA_IN1_GPIO_Port
-#define HRC_DATA_IN2_Pin             M203_DATA_IN2_Pin
-#define HRC_DATA_IN2_GPIO_Port       M203_DATA_IN2_GPIO_Port
-#define HRC_DATA_IN3_Pin             M203_DATA_IN3_Pin
-#define HRC_DATA_IN3_GPIO_Port       M203_DATA_IN3_GPIO_Port
-#define HRC_DATA_IN4_Pin             M203_DATA_IN4_Pin
-#define HRC_DATA_IN4_GPIO_Port       M203_DATA_IN4_GPIO_Port
-#define HRC_DATA_IN5_Pin             M203_DATA_IN5_Pin
-#define HRC_DATA_IN5_GPIO_Port       M203_DATA_IN5_GPIO_Port
-#define HRC_DATA_IN6_Pin             M203_DATA_IN6_Pin
-#define HRC_DATA_IN6_GPIO_Port       M203_DATA_IN6_GPIO_Port
-#define HRC_DATA_IN7_Pin             M203_DATA_IN7_Pin
-#define HRC_DATA_IN7_GPIO_Port       M203_DATA_IN7_GPIO_Port
-#endif
-
-#if !defined(HRC_RSTN_Pin) && defined(M203_RSTN_Pin)
-#define HRC_RSTN_Pin                 M203_RSTN_Pin
-#define HRC_RSTN_GPIO_Port           M203_RSTN_GPIO_Port
-#endif
-
-#if !defined(HRC_CMD_Pin) && defined(M203_CMD_Pin)
-#define HRC_CMD_Pin                  M203_CMD_Pin
-#define HRC_CMD_GPIO_Port            M203_CMD_GPIO_Port
-#endif
-
-#if !defined(HRC_CLK_Pin) && defined(M203_CLK_Pin)
-#define HRC_CLK_Pin                  M203_CLK_Pin
-#define HRC_CLK_GPIO_Port            M203_CLK_GPIO_Port
-#endif
-
-#if !defined(HRC_DATA_OUT0_Pin) && defined(GWL2_A0_Pin)
-#define HRC_DATA_OUT0_Pin            GWL2_A0_Pin
-#define HRC_DATA_OUT0_GPIO_Port      GWL2_A0_GPIO_Port
-#define HRC_DATA_OUT1_Pin            GWL2_A1_Pin
-#define HRC_DATA_OUT1_GPIO_Port      GWL2_A1_GPIO_Port
-#define HRC_DATA_OUT2_Pin            GSL3_EN_Pin
-#define HRC_DATA_OUT2_GPIO_Port      GSL3_EN_GPIO_Port
-#define HRC_DATA_OUT3_Pin            GSL3_A0_Pin
-#define HRC_DATA_OUT3_GPIO_Port      GSL3_A0_GPIO_Port
-#define HRC_DATA_OUT4_Pin            GSL3_A1_Pin
-#define HRC_DATA_OUT4_GPIO_Port      GSL3_A1_GPIO_Port
-#define HRC_DATA_OUT5_Pin            GBL3_A1_Pin
-#define HRC_DATA_OUT5_GPIO_Port      GBL3_A1_GPIO_Port
-#define HRC_DATA_OUT6_Pin            GBL3_A0_Pin
-#define HRC_DATA_OUT6_GPIO_Port      GBL3_A0_GPIO_Port
-#define HRC_DATA_OUT7_Pin            GBL3_EN_Pin
-#define HRC_DATA_OUT7_GPIO_Port      GBL3_EN_GPIO_Port
-#endif
-
 typedef struct
 {
   GPIO_TypeDef *port;
@@ -123,6 +67,20 @@ void HRC_ClockPulse(void)
   HAL_GPIO_WritePin(HRC_CLK_GPIO_Port, HRC_CLK_Pin, GPIO_PIN_RESET);
   delay_us(1U);
 }
+//产生一个时钟并采样输出，CLK下降沿采样一次输出，存到valid_out，data_out的地址中
+void HRC_ClockPulseAndRead(uint8_t *valid_out, uint8_t *data_out)
+{
+    HAL_GPIO_WritePin(HRC_CLK_GPIO_Port, HRC_CLK_Pin, GPIO_PIN_SET);
+    delay_us(1U);  // CLK 高电平时间
+
+    HAL_GPIO_WritePin(HRC_CLK_GPIO_Port, HRC_CLK_Pin, GPIO_PIN_RESET);
+    // 此处发生下降沿，操作周期结束
+
+    *valid_out = HRC_ReadValidOut();
+    *data_out = HRC_ReadDataOut();
+
+    delay_us(1U);  // CLK 低电平保持时间，也是下一周期的准备阶段
+}
 
 void HRC_ClockCycles(uint16_t n)
 {
@@ -166,11 +124,7 @@ uint8_t HRC_ReadDataOut(void)
 
 uint8_t HRC_ReadValidOut(void)
 {
-#if defined(HRC_VALID_OUT_Pin) && defined(HRC_VALID_OUT_GPIO_Port)
   return (HAL_GPIO_ReadPin(HRC_VALID_OUT_GPIO_Port, HRC_VALID_OUT_Pin) == GPIO_PIN_SET) ? 1U : 0U;
-#else
-  return 0U;
-#endif
 }
 
 HRC_StatusTypeDef HRC_WaitIdle(uint32_t timeout_ms)

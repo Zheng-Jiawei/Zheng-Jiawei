@@ -1,6 +1,5 @@
 --cpu=Cortex-M4.fp.sp
 "stm32_g474_project\startup_stm32g474xx.o"
-"stm32_g474_project\m203.o"
 "stm32_g474_project\adc_user.o"
 "stm32_g474_project\dac_user.o"
 "stm32_g474_project\hrc_bus.o"

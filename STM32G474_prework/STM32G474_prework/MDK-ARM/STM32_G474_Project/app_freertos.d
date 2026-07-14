@@ -48,7 +48,6 @@ stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/in
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-stm32_g474_project\app_freertos.o: ../Core/Inc/M203.h
 stm32_g474_project\app_freertos.o: ../Core/Inc/adc_user.h
 stm32_g474_project\app_freertos.o: ../Core/Inc/spi.h
 stm32_g474_project\app_freertos.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h

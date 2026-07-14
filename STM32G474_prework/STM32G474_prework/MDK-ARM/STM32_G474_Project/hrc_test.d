@@ -1,6 +1,5 @@
 stm32_g474_project\hrc_test.o: ../Core/Src/hrc_test.c
 stm32_g474_project\hrc_test.o: ../Core/Inc/hrc_test.h
-stm32_g474_project\hrc_test.o: ../Core/Inc/hrc_cfg.h
 stm32_g474_project\hrc_test.o: ../Core/Inc/hrc_bus.h
 stm32_g474_project\hrc_test.o: ../Core/Inc/main.h
 stm32_g474_project\hrc_test.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h
@@ -37,4 +36,5 @@ stm32_g474_project\hrc_test.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal
 stm32_g474_project\hrc_test.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 stm32_g474_project\hrc_test.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 stm32_g474_project\hrc_test.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+stm32_g474_project\hrc_test.o: ../Core/Inc/hrc_cfg.h
 stm32_g474_project\hrc_test.o: ../Core/Inc/pc_comm.h

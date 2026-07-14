@@ -52,7 +52,6 @@ stm32_g474_project\main.o: ../Core/Inc/dma.h
 stm32_g474_project\main.o: ../Core/Inc/spi.h
 stm32_g474_project\main.o: ../Core/Inc/usart.h
 stm32_g474_project\main.o: ../Core/Inc/gpio.h
-stm32_g474_project\main.o: ../Core/Inc/M203.h
 stm32_g474_project\main.o: ../Core/Inc/adc_user.h
 stm32_g474_project\main.o: ../Core/Inc/dac_user.h
 stm32_g474_project\main.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h

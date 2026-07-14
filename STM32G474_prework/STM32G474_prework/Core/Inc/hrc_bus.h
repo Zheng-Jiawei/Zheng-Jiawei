@@ -29,6 +29,7 @@ void HRC_SetDataIn(uint8_t data);
 void HRC_SetCmd(uint8_t level);
 void HRC_SetRstn(uint8_t level);
 void HRC_ClockPulse(void);
+void HRC_ClockPulseAndRead(uint8_t *valid_out, uint8_t *data_out);
 void HRC_ClockCycles(uint16_t n);
 void HRC_SendCommand(uint8_t cmd);
 void HRC_SendData(uint8_t data);

@@ -126,10 +126,10 @@ int main(void)
 
   HAL_Delay(2000);
   //M203_Init();
-  GBL_GWL_GSL_Init();
+  //GBL_GWL_GSL_Init();
   HAL_Delay(5);
-  GBL_select(1);
-  GWL_select(1);
+  //GBL_select(1);
+  //GWL_select(1);
   HAL_Delay(5);
 
   DAC_update(1, 1, 901);

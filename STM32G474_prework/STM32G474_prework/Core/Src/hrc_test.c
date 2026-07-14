@@ -3,6 +3,42 @@
 
 static uint8_t hrc_adc_samples[HRC_ADC_SAMPLE_MAX];
 
+static void HRC_SetTestLed(uint8_t passed)
+{
+  /* The board initializes LEDs high; LED2 is therefore treated as active-low. */
+  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,
+                    (passed != 0U) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+}
+//
+static HRC_StatusTypeDef HRC_WaitIdleByClock(uint32_t timeout_ms)
+{
+    uint32_t start = HAL_GetTick();
+    uint8_t idle_count = 0U;
+    uint8_t valid_out;
+    uint8_t data_out;
+
+    while ((HAL_GetTick() - start) <= timeout_ms)
+    {
+        HRC_ClockPulseAndRead(&valid_out, &data_out);
+
+        if ((valid_out == 0U) && (data_out == 0x00U))
+        {
+            idle_count++;
+
+            if (idle_count >= 2U)
+            {
+                return HRC_OK;
+            }
+        }
+        else
+        {
+            idle_count = 0U;
+        }
+    }
+
+    return HRC_TIMEOUT;
+}
+
 static uint8_t HRC_BitReverse6(uint8_t value)
 {
   uint8_t result = 0U;
@@ -18,6 +54,45 @@ static uint8_t HRC_BitReverse6(uint8_t value)
   }
 
   return result;
+}
+/*初始化测试程序
+测试流程为：
+1. LED2 熄灭。
+2. 初始化 HRC 总线，使 RSTN=0。
+3. 发送 8 个干净的 CLK 周期。
+4. 检查复位态：VALID_OUT=0 且 DATA_OUT=0xA5。
+5. 释放复位：RSTN=1。
+6. 每产生一个 CLK 周期后读取一次输出，确认 VALID_OUT=0、DATA_OUT=0x00 连续满足 2 个时钟周期。
+7. 全部通过后点亮 LED2，并通过串口输出 INITIAL_TEST passed；任一步失败则保持 LED2 熄灭，并打印失败时的 VALID、DATA 值。
+*/
+void HRC_Test_Initial(void)
+{
+  HRC_StatusTypeDef status;
+
+  HRC_SetTestLed(0U);
+  HRC_Bus_InitDefault();
+  HRC_ClockCycles(8U);
+
+  if ((HRC_ReadValidOut() != 0U) || (HRC_ReadDataOut() != 0xA5U))
+  {
+    PC_Printf("INITIAL_TEST reset-state failed: VALID=%u DATA=0x%02X\r\n",
+              (unsigned int)HRC_ReadValidOut(),
+              (unsigned int)HRC_ReadDataOut());
+    return;
+  }
+
+  HRC_SetRstn(1U);
+  status = HRC_WaitIdleByClock(HRC_INITIAL_TEST_TIMEOUT_MS);
+  if (status != HRC_OK)
+  {
+    PC_Printf("INITIAL_TEST idle-state failed: VALID=%u DATA=0x%02X\r\n",
+              (unsigned int)HRC_ReadValidOut(),
+              (unsigned int)HRC_ReadDataOut());
+    return;
+  }
+
+  HRC_SetTestLed(1U);
+  PC_Printf("INITIAL_TEST passed\r\n");
 }
 
 void HRC_Test_CfgDefault(void)
