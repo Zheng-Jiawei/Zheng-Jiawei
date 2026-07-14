@@ -253,11 +253,6 @@ extern uint8_t Dispose_read_flag;
 void delay_us(uint16_t nus);
 uint16_t CRC_Check(uint8_t *CRC_Ptr,uint8_t LEN);
 
-void ADC_SwitchChannel(uint8_t channel);
-void ADC_Read_AB(uint8_t Ch, int16_t *pA, int16_t *pB);
-void ADC_Read_AllChannels(uint16_t *adc_result);
-
-int16_t ADC_Read_data(uint8_t Ch);
 
 void SPI3_DMA_Reset(void);
 /* USER CODE END Private defines */

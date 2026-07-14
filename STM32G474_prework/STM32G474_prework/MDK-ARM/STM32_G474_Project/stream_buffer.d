@@ -1,8 +1,8 @@
 stm32_g474_project\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
-stm32_g474_project\stream_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-stm32_g474_project\stream_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+stm32_g474_project\stream_buffer.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdint.h
+stm32_g474_project\stream_buffer.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h
 stm32_g474_project\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-stm32_g474_project\stream_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+stm32_g474_project\stream_buffer.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stddef.h
 stm32_g474_project\stream_buffer.o: ../Core/Inc/FreeRTOSConfig.h
 stm32_g474_project\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 stm32_g474_project\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

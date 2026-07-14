@@ -1,6 +1,12 @@
 --cpu=Cortex-M4.fp.sp
 "stm32_g474_project\startup_stm32g474xx.o"
 "stm32_g474_project\m203.o"
+"stm32_g474_project\adc_user.o"
+"stm32_g474_project\dac_user.o"
+"stm32_g474_project\hrc_bus.o"
+"stm32_g474_project\hrc_cfg.o"
+"stm32_g474_project\hrc_test.o"
+"stm32_g474_project\pc_comm.o"
 "stm32_g474_project\main.o"
 "stm32_g474_project\gpio.o"
 "stm32_g474_project\app_freertos.o"
@@ -40,7 +46,7 @@
 "stm32_g474_project\cmsis_os.o"
 "stm32_g474_project\heap_4.o"
 "stm32_g474_project\port.o"
---strict --scatter "STM32_G474_Project\STM32_G474_Project.sct"
+--strict --scatter "stm32g474xx_flash.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "STM32_G474_Project.map" -o STM32_G474_Project\STM32_G474_Project.axf

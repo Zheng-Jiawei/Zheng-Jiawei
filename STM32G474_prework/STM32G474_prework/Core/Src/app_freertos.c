@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "M203.h"
+#include "adc_user.h"
 #include "spi.h"
 #include <string.h>
 /* USER CODE END Includes */
@@ -210,7 +211,7 @@ void StartTask02(void const * argument)
 						}
 						else if(FPGA_buff[3] == 0x02)  //02 ��ʾ��������1����0
 						{
-							if(FPGA_buff[2] == Valid_data_byte) //�жϴ������Ч�ֽ����Ƿ���ȷ
+							if(FPGA_buff[2] == Valid_data_byte) //�жϴ������Ч�ֽ����Ƿ����?
 							{
 								uint8_t valid_len = Valid_data_byte;
 								for(uint8_t i=0; i<valid_len; i++)
@@ -221,7 +222,7 @@ void StartTask02(void const * argument)
 //								Set_Bl_single_rows(FPGA_Row_start, FPGA_RowS);
 							}	
 						}
-						else if(FPGA_buff[3] == 0x03) 	//��ʾ���ݴ������
+						else if(FPGA_buff[3] == 0x03) 	//��ʾ���ݴ������?
 						{
 							Dispose_read_flag = 1;
 							
@@ -318,17 +319,17 @@ void StartTask03(void const * argument)
 					osDelay(10);
 					ADC_data[i] = ADC_Read_data(0);
 				}
-				Dispose_read_flag = 2; //��ʾ�����üĴ�����ȡADC���
+				Dispose_read_flag = 2; //��ʾ�����üĴ�����ȡADC���?
 			}
 			else if(Rows_and_cols_flag == 1) //���ж��б�־
 			{
 				uint16_t read_times = rec_index / Valid_data_byte;  // �����ٴ�
-        uint16_t store_index = 0;                           // ADC_data ���λ������
+        uint16_t store_index = 0;                           // ADC_data ���λ������?
 				
 				// ѭ����ȡ
         for(uint16_t i=0; i < read_times; i++)
         {
-          uint16_t temp_adc[16];  // ��ʱ���һ�ζ�����16·ADC
+          uint16_t temp_adc[16];  // ��ʱ���һ�ζ�����?6·ADC
 
           Set_Bl_single_rows(FPGA_Row_start, FPGA_RowS);
           osDelay(10);
@@ -340,7 +341,7 @@ void StartTask03(void const * argument)
             ADC_data[store_index++] = temp_adc[j];
           }
         }
-				Dispose_read_flag = 2; //��ʾ�����üĴ�����ȡADC���
+				Dispose_read_flag = 2; //��ʾ�����üĴ�����ȡADC���?
 			}
 			
 		}
@@ -366,7 +367,7 @@ void StartTask03(void const * argument)
 //			FPGA_tx_buff[buff_pos++] = (CRC_Check(FPGA_tx_buff+2, 14) & 0xFF);
 //			FPGA_tx_buff[buff_pos++] = 0xAA;
 //			FPGA_tx_buff[buff_pos++] = 0x55;
-//			Dispose_read_flag = 3; //�ѽ�ADC����Ԥ���
+//			Dispose_read_flag = 3; //�ѽ�ADC����Ԥ���?
 //			
 //			HAL_SPI_TransmitReceive_DMA(&hspi3,FPGA_tx_buff,FPGA_rx_buff,8+(rec_index / Valid_data_byte) * 2);
 			uint8_t buff_pos = 4; //��FPGA_buff[4]��ʼ������

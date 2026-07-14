@@ -1,7 +1,7 @@
 stm32_g474_project\app_freertos.o: ../Core/Src/app_freertos.c
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-stm32_g474_project\app_freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-stm32_g474_project\app_freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+stm32_g474_project\app_freertos.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stddef.h
+stm32_g474_project\app_freertos.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\stdint.h
 stm32_g474_project\app_freertos.o: ../Core/Inc/FreeRTOSConfig.h
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
@@ -49,5 +49,6 @@ stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/in
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 stm32_g474_project\app_freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 stm32_g474_project\app_freertos.o: ../Core/Inc/M203.h
+stm32_g474_project\app_freertos.o: ../Core/Inc/adc_user.h
 stm32_g474_project\app_freertos.o: ../Core/Inc/spi.h
-stm32_g474_project\app_freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+stm32_g474_project\app_freertos.o: D:\STM32\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin\..\include\string.h
