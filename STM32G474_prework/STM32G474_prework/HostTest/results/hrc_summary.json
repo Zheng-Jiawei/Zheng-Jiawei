@@ -1,0 +1,116 @@
+{
+  "summary": {
+    "magic": 1213350705,
+    "format_version": 1,
+    "overall_pass": 1,
+    "checks": 63,
+    "failures": 0,
+    "trace_count": 416,
+    "cycle_count": 202,
+    "protocol_errors": 0,
+    "unsupported_commands": 0,
+    "invalid_addresses": 0,
+    "adc_latency_ns": 3000,
+    "octdc_latency_ns": 2000,
+    "final_time_ns": 424000,
+    "led2_level": 0,
+    "adc_seen": 1,
+    "adc_raw": 21,
+    "adc_code": 42,
+    "octdc_seen": 1,
+    "octdc_value": 1
+  },
+  "validation_pass": true,
+  "validation": [
+    {
+      "name": "summary magic",
+      "pass": true,
+      "detail": "0x48524331"
+    },
+    {
+      "name": "C assertions",
+      "pass": true,
+      "detail": "checks=63, failures=0"
+    },
+    {
+      "name": "model diagnostics",
+      "pass": true,
+      "detail": "protocol=0, unsupported=0, invalid_address=0"
+    },
+    {
+      "name": "falling-edge input preparation",
+      "pass": true,
+      "detail": "66 CMD/DATA_IN transitions on CLK falling; minimum setup to next rising=1000 ns"
+    },
+    {
+      "name": "asynchronous reset signature",
+      "pass": true,
+      "detail": "8 reset cycles, first 8 expected VALID=0 DATA=0xA5"
+    },
+    {
+      "name": "READ_CFG total default timing",
+      "pass": true,
+      "detail": "c1=F0; c2..c46 VALID=1/00; c47 VALID=0; c48 IDLE"
+    },
+    {
+      "name": "WRITE_CFG single timing",
+      "pass": true,
+      "detail": "c1=E0, c2=E1, c3=E2, c4=IDLE"
+    },
+    {
+      "name": "READ_CFG single timing",
+      "pass": true,
+      "detail": "c1=F0, c2 VALID=1/DATA=5A, c3=IDLE"
+    },
+    {
+      "name": "WRITE_CFG total timing",
+      "pass": true,
+      "detail": "c2..c46 address 0..44; c47 holds 44; c48 IDLE"
+    },
+    {
+      "name": "READ_CFG total timing",
+      "pass": true,
+      "detail": "45 values 55/AA with VALID=1; c47 VALID=0; c48 IDLE"
+    },
+    {
+      "name": "ADC asynchronous timing and bit order",
+      "pass": true,
+      "detail": "DATA_OUT 00->15 after 3000 ns; logical code=42"
+    },
+    {
+      "name": "OCTDC asynchronous timing",
+      "pass": true,
+      "detail": "DATA_OUT 00->01 after 2000 ns"
+    },
+    {
+      "name": "final IDLE",
+      "pass": true,
+      "detail": "state=IDLE, VALID=0, DATA=0x00"
+    }
+  ],
+  "phase_names": {
+    "0": "BOOT",
+    "1": "INITIAL_RESET_IDLE",
+    "2": "CFG_DEFAULT_READ_TOTAL",
+    "3": "CFG_SINGLE_WRITE_READ",
+    "4": "CFG_TOTAL_WRITE_READ",
+    "5": "ADC_ASYNC_LOCKED",
+    "6": "OCTDC_ASYNC_LOCKED",
+    "7": "DRIVER_PARAMETER_GUARDS"
+  },
+  "state_names": {
+    "0": "RESET",
+    "1": "IDLE",
+    "2": "WRITE_CFG_MODE",
+    "3": "WRITE_CFG_SINGLE_ADDR",
+    "4": "WRITE_CFG_SINGLE_VALUE",
+    "5": "WRITE_CFG_SINGLE_DONE",
+    "6": "WRITE_CFG_TOTAL",
+    "7": "READ_CFG_MODE",
+    "8": "READ_CFG_SINGLE_ADDR",
+    "9": "READ_CFG_SINGLE_DONE",
+    "10": "READ_CFG_TOTAL",
+    "11": "ADC_TEST",
+    "12": "OCTDC_TEST"
+  }
+}

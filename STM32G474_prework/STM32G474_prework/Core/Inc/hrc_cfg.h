@@ -8,7 +8,7 @@ extern "C" {
 #include "hrc_bus.h"
 
 #define HRC_CFG_REG_NUM             45U
-#define HRC_CFG_DEFAULT_TIMEOUT_MS  10U
+#define HRC_CFG_IDLE_TIMEOUT_CYCLES HRC_DEFAULT_TIMEOUT_CYCLES
 
 void HRC_CFG_ClearShadow(void);
 void HRC_CFG_SetShadow(uint8_t addr, uint8_t value);

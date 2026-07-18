@@ -29,6 +29,7 @@
 //#include "M203.h"
 #include "adc_user.h"
 #include "dac_user.h"
+#include "hrc_test.h"
 #include <string.h>
 /* USER CODE END Includes */
 
@@ -75,6 +76,11 @@ uint8_t Reset_flag = 0;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+volatile uint16_t hrc_adc_conversion_wait_us = HRC_ADC_DEFAULT_CONVERSION_WAIT_US;
+volatile uint16_t hrc_octdc_conversion_wait_us = HRC_OCTDC_DEFAULT_WAIT_US;
+volatile uint8_t hrc_octdc_delay_trim = HRC_OCTDC_DEFAULT_DELAY_TRIM;
+volatile uint8_t hrc_octdc_bl_res_trim = HRC_OCTDC_DEFAULT_BL_RES_TRIM;
+volatile uint8_t hrc_octdc_ref_res_trim = HRC_OCTDC_DEFAULT_REF_RES_TRIM;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -95,6 +101,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+  HRC_StatusTypeDef hrc_test_status;
+  uint8_t hrc_adc_single_code = 0U;
+  uint8_t hrc_octdc_result = 0U;
 
   /* USER CODE END 1 */
 
@@ -121,15 +130,49 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(5);
-  HAL_SPI_TransmitReceive_DMA(&hspi3, FPGA_tx_buff, FPGA_rx_buff, 20);
-
   HAL_Delay(2000);
-  //M203_Init();
-  //GBL_GWL_GSL_Init();
-  HAL_Delay(5);
-  //GBL_select(1);
-  //GWL_select(1);
+  hrc_test_status = HRC_Test_Initial();
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_CfgDefault();
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_ADC_Single(hrc_adc_conversion_wait_us,
+                                          &hrc_adc_single_code);
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_ADC_Continuous(HRC_ADC_SAMPLE_MAX,
+                                              hrc_adc_conversion_wait_us);
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_OCTDC_Single(hrc_octdc_delay_trim,
+                                            hrc_octdc_bl_res_trim,
+                                            hrc_octdc_ref_res_trim,
+                                            hrc_octdc_conversion_wait_us,
+                                            &hrc_octdc_result);
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_CfgSingle(HRC_CFG_SINGLE_TEST_ADDR,
+                                         HRC_CFG_SINGLE_TEST_VALUE);
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_CfgTotal();
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_ReadSingleDefault();
+  }
+  if (hrc_test_status == HRC_OK)
+  {
+    hrc_test_status = HRC_Test_ReadRowDefault();
+  }
+
+  HAL_SPI_TransmitReceive_DMA(&hspi3, FPGA_tx_buff, FPGA_rx_buff, 20);
   HAL_Delay(5);
 
   DAC_update(1, 1, 901);

@@ -1,0 +1,20 @@
+
+R13 = 0x20020000
+G main, HRC_Sim_TestComplete
+
+SAVE D:\Git\Zheng-Jiawei\STM32G474_prework\STM32G474_prework\HostTest\results\trace.hex 0x20000094, 0x20003093
+SAVE D:\Git\Zheng-Jiawei\STM32G474_prework\STM32G474_prework\HostTest\results\cycles.hex 0x20003094, 0x20004893
+SAVE D:\Git\Zheng-Jiawei\STM32G474_prework\STM32G474_prework\HostTest\results\summary.hex 0x20004894, 0x200048DF
+
+EVAL g_hrc_summary_record.overall_pass
+0x00000001 1
+EVAL g_hrc_summary_record.failures
+0x00000000 0
+EVAL g_hrc_summary_record.protocol_errors
+0x00000000 0
+EVAL g_hrc_summary_record.trace_count
+0x000001A0 416
+EVAL g_hrc_summary_record.cycle_count
+0x000000CA 202
+
+LOG OFF

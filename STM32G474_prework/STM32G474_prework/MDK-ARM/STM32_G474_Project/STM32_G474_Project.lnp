@@ -4,6 +4,7 @@
 "stm32_g474_project\dac_user.o"
 "stm32_g474_project\hrc_bus.o"
 "stm32_g474_project\hrc_cfg.o"
+"stm32_g474_project\hrc_read.o"
 "stm32_g474_project\hrc_test.o"
 "stm32_g474_project\pc_comm.o"
 "stm32_g474_project\main.o"

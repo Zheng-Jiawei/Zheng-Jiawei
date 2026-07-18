@@ -472,6 +472,11 @@
               <FilePath>../Core/Src/hrc_cfg.c</FilePath>
             </File>
             <File>
+              <FileName>hrc_read.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/hrc_read.c</FilePath>
+            </File>
+            <File>
               <FileName>hrc_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/hrc_test.c</FilePath>

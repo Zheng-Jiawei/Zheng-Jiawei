@@ -5,7 +5,11 @@
 extern "C" {
 #endif
 
+#ifdef HRC_HOST_TEST
+#include "hrc_host_hal.h"
+#else
 #include "main.h"
+#endif
 
 void PC_Printf(const char *fmt, ...);
 void PC_SendBytes(const uint8_t *buf, uint16_t len);

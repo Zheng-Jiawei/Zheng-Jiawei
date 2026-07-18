@@ -1,0 +1,34 @@
+overall=PASS
+independent_validation=PASS
+magic=1213350705
+format_version=1
+overall_pass=1
+checks=63
+failures=0
+trace_count=416
+cycle_count=202
+protocol_errors=0
+unsupported_commands=0
+invalid_addresses=0
+adc_latency_ns=3000
+octdc_latency_ns=2000
+final_time_ns=424000
+led2_level=0
+adc_seen=1
+adc_raw=21
+adc_code=42
+octdc_seen=1
+octdc_value=1
+validation.summary magic=PASS | 0x48524331
+validation.C assertions=PASS | checks=63, failures=0
+validation.model diagnostics=PASS | protocol=0, unsupported=0, invalid_address=0
+validation.falling-edge input preparation=PASS | 66 CMD/DATA_IN transitions on CLK falling; minimum setup to next rising=1000 ns
+validation.asynchronous reset signature=PASS | 8 reset cycles, first 8 expected VALID=0 DATA=0xA5
+validation.READ_CFG total default timing=PASS | c1=F0; c2..c46 VALID=1/00; c47 VALID=0; c48 IDLE
+validation.WRITE_CFG single timing=PASS | c1=E0, c2=E1, c3=E2, c4=IDLE
+validation.READ_CFG single timing=PASS | c1=F0, c2 VALID=1/DATA=5A, c3=IDLE
+validation.WRITE_CFG total timing=PASS | c2..c46 address 0..44; c47 holds 44; c48 IDLE
+validation.READ_CFG total timing=PASS | 45 values 55/AA with VALID=1; c47 VALID=0; c48 IDLE
+validation.ADC asynchronous timing and bit order=PASS | DATA_OUT 00->15 after 3000 ns; logical code=42
+validation.OCTDC asynchronous timing=PASS | DATA_OUT 00->01 after 2000 ns
+validation.final IDLE=PASS | state=IDLE, VALID=0, DATA=0x00
